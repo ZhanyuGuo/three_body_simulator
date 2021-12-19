@@ -36,8 +36,8 @@ vector<unsigned int> loadTextures(const int n, const char* rootPath, const char*
 const double PI = 3.141592653589793238462643383279502884;
 
 // settings
-const int SCR_WIDTH = 1024;
-const int SCR_HEIGHT = 800;
+const int SCR_WIDTH = 1920;
+const int SCR_HEIGHT = 1080;
 
 // sphere segments
 const unsigned int Y_SEGMENTS = 50;
@@ -93,7 +93,7 @@ int main()
     cout << "8: Double slingshot\t";
     cout << "9: Hyperbolics\n";
     cout << "10: Ellipses\t\t";
-    cout << "11: Double double\n";
+    cout << "11: Double double\n\n";
     cin >> mode;
     if (mode == 0)
     {
@@ -118,7 +118,22 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Three-Body Simulator", NULL, NULL);
+    bool isFullScreen = true;
+    int monitorCount;
+    GLFWmonitor** pMonitor = isFullScreen ? glfwGetMonitors(&monitorCount) : NULL;
+    int holographic_screen = -1;
+    for(int i = 0; i < monitorCount; i++)
+    {
+        int screen_x, screen_y;
+        const GLFWvidmode *mode = glfwGetVideoMode(pMonitor[i]);
+        screen_x = mode->width;
+        screen_y = mode->height;
+        if(screen_x==1920 && screen_y==1080){
+            holographic_screen = i;
+        }
+    }
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Holographic projection", pMonitor[holographic_screen], NULL);
+    // GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Three-Body Simulator", NULL, NULL);
     if (window == NULL)
     {
         cout << "Failed to create GLFW window" << endl;
@@ -374,13 +389,13 @@ int main()
     else if (mode == DOUBLE_SLINGSHOT)
     {
         // double slingshot
-        Body star1(20.0, 3.0, glm::vec3(1.0f, 1.0f, 0.0f), glm::dvec3(0.0, 0.0, 0.0), glm::dvec3(0.0, 0.0, 0.0));
+        Body star1(20.0, 1.0, glm::vec3(1.0f, 1.0f, 0.0f), glm::dvec3(0.0, 0.0, 0.0), glm::dvec3(0.0, -0.1, 0.0));
         bodies.push_back(star1);
-        Body star2(0.5, 1.0, glm::vec3(1.0f, 0.0f, 1.0f), glm::dvec3(0.0, -11.2, 0.0), glm::dvec3(13.4, 0.0, 0.0));
+        Body star2(0.5, 0.5, glm::vec3(1.0f, 0.0f, 1.0f), glm::dvec3(0.0, -11.2, 0.0), glm::dvec3(13.4, 0.0, 0.0));
         bodies.push_back(star2);
-        Body star3(0.4, 1.0, glm::vec3(0.0f, 1.0f, 1.0f), glm::dvec3(18.6, -5.0, 0.0), glm::dvec3(0.1, 12.0, 0.0));
+        Body star3(0.4, 0.5, glm::vec3(0.0f, 1.0f, 1.0f), glm::dvec3(18.6, -0.5, 0.0), glm::dvec3(0.1, 11.1, 0.0));
         bodies.push_back(star3);
-        Body star4(0.001, 0.5, glm::vec3(1.0f, 1.0f, 1.0f), glm::dvec3(7.0, 7.2, 0.0), glm::dvec3(-6.0, 9.0, 0.0));
+        Body star4(0.001, 0.2, glm::vec3(1.0f, 1.0f, 1.0f), glm::dvec3(7.0, 7.2, 0.0), glm::dvec3(-4.7, 6.3, 0.0));
         bodies.push_back(star4);
     }
     else if (mode == HYPERBOLICS)
