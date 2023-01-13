@@ -45,6 +45,7 @@ sudo apt install freeglut3-dev libxxf86vm-dev libassimp-dev
 ### Finally
 
 ```bash
+git clone https://github.com/ZhanyuGuo/three_body_simulator.git
 cd three_body_simulator/
 mkdir build
 cd build/
