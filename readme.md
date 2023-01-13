@@ -1,8 +1,6 @@
 # Three-Body Simulator
 
-## Contributor
-
-Zhanyu Guo
+Author: Zhanyu Guo
 
 ## Reference
 
@@ -10,22 +8,58 @@ Zhanyu Guo
 
 ## Sources
 
-See in "/src/*".
+See in `src/*`.
 
 ## Build
 
+### Cmake
+
 ```bash
+sudo apt install cmake build-essential
+```
+
+### GLFW
+
+```bash
+sudo apt install git
+git clone https://github.com/glfw/glfw.git
+```
+or download from https://www.glfw.org/.
+
+```bash
+cd glfw/
+sudo apt install libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
 mkdir build
-cd build
+cd build/
+cmake ..
+make
+sudo make install
+```
+
+### OpenGL
+
+```bash
+sudo apt install freeglut3-dev libxxf86vm-dev libassimp-dev
+```
+
+### Finally
+
+```bash
+cd three_body_simulator/
+mkdir build
+cd build/
 cmake ..
 make
 ```
 
 ## Run
 
-Just run whatever you want in "/build".
+```bash
+cd build/
+./Three-Body_Simulator
+```
 
-## Log of Project
+## Update Log of Project
 
 ### V1.5
 
